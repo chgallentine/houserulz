@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link 
+            rel="stylesheet" 
+            type="text/css"
+            href="{% static 'therulz/style.css' %}"
+        />
+        <link 
+            rel="stylesheet" 
+            href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" 
+            integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" 
+            crossorigin="anonymous"
+        >
+        <title>HOUSERULZ?</title>
+    </head>
+    <body>
+        <form 
+            class="search" action="{% url 'therulz:search' %}" method='get'
+            action="{% url 'therulz:search' %}"
+            method="get" 
+            class="search">
+            {% csrf_token %}
+            <input 
+                type="search" 
+                placeholder="SEARCH"
+                name="usr_query"
+                value='{{ query }}'
+             />
+            <button
+                type="submit"
+                value="S"
+                class="search_button">
+                <i class="fas fa-search"></i>
+            </button> 
+        </form>
+
+        <div class="container">
+            <div class="game_list_container">
+                {% for game in game_list %}
+                    <a  class="game_title btn"
+                        href="{% url 'therulz:game' game.id %}">
+                    {{ game.game_name }}
+                    </a>
+                {% endfor %}
+            </div>
+            <a class="control btn" href="about/">FAQ</a>
+        </div>
+        <h1 class="logo">HOUSE RULZ</h1>
+    </body>
+</html>

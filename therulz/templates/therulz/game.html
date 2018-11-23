@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link 
+            rel="stylesheet" 
+            type="text/css"
+            href="{% static 'therulz/style.css' %}"
+        />
+        <link 
+            rel="stylesheet" 
+            href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" 
+            integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" 
+            crossorigin="anonymous"
+        >
+        <title>HOUSERULZ?</title>
+    </head>
+    <body>
+        <form 
+            class="search" 
+            action="{% url 'therulz:search' %}" 
+            method='get'
+            action="{% url 'therulz:search' %}"
+            method="get" 
+            class="search">
+            {% csrf_token %}
+            <input 
+                type="search" 
+                placeholder="SEARCH"
+                name="usr_query"
+                value='{{ query }}'
+             />
+            <button
+                type="submit"
+                value="S"
+                class="search_button">
+                <i class="fas fa-search"></i>
+            </button> 
+        </form>
+
+        <div class="container">
+            <p class="btn game_title">
+                {{ game.game_name }}
+            </p>
+            <div class="rule_list_container">
+                <p class="player_count rule_name">
+                {% if game.max_player_count > 0 %}
+                    {{ game.min_player_count }}-{{ game.max_player_count }}P
+                {% else %}
+                    {{ game.min_player_count }}P
+                {% endif %}
+                </p>
+                <ul>
+                    {% for rule in rule_list %}
+                    <li class="rule_name">{{ rule.rule_name }}</li>
+                    <li class="rule_text">{{ rule.rule_text }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <a class="control btn" href="/">HOME</a>
+        </div>
+        <h1 class="logo">HOUSE RULZ</h1>
+    </body>
+</html>
